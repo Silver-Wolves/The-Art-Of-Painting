@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('body').css({
+                "background-image" : "url(main.png)"
+            });
+            $('p').css({
+               "font-size" : "18px",
+               "text-align" : "center" 
+            });
+            $('img').css({
+                "margin-left" : "20px"
+            });
+            $('button').css({
+                "font-size" : "18px",
+                "margin-top" : "10px",
+                "margin-left" : "80px"
+            });
+            $('hr').css({
+                "padding-bottom" : "20px",
+            });
+            $('.jumbotron').css({
+                
+                "margin-bottom" : "10px",
+                "margin-top" : "10px",
+                "padding-top" : "10px",
+                "padding-bottom" : "10px"
+            });
+            $('h1').css({
+                "font-size" : "30px",
+                "text-align" : "center",
+                "margin-top" : "10px",
+            });
+        })
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1><i>The Art Of Painting</i></h1>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="col-md-3">
+            <p><i>Create a new painting</i></p>
+            <img src="/create_new_painting.png">
+            <form action="/drawing" method="post">
+                <button id="create" class="btn btn-success"><i>Select</i></button>
+            </form>
+        </div>
+        <div class="col-md-3">
+            <p><i>Gallery</i></p>
+            <img src="/gallery.png">
+            <button id="gallery" class="btn btn-success"><i>Select</i></button>
+        </div>
+        <div class="col-md-3">
+            <p><i>Market</i></p>
+            <img src="/market.png">
+            <br>
+            
+            <button id="market" class="btn btn-success"><i>Select</i></button>
+        </div>
+        <div class="col-md-3">
+            <p><i>Credits</i></p>
+            <img src="/credits.png">
+            <br>
+            <form action="/credits" method="post">
+                <button id="credits" class="btn btn-success"><i>Select</i></button>
+            </form>
+            
+        </div>
+    </div>
+    <hr>
+</body>
+
+</html>

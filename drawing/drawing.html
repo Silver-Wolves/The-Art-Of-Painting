@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>The art of painting</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <style>
+        .p{
+            font-family: monospace;
+            font-feature-settings: normal;
+            font-style: italic;
+        }
+        .p1{
+            font-family: monospace;
+            font-feature-settings: normal;
+            font-style: italic;
+            font-size: 16px;
+        }
+        .jumbotron {
+          
+          background-color: rgba(0, 0, 0, 0.18);
+          font-family:monospace;
+          color: rgba(0, 0, 0, 0.66);
+        
+    }
+        body{
+            background-image: url(painted-background.png);
+            background-size: cover;
+        }
+        table{
+            background-color: rgba(75, 74, 74, 0.32);
+        }
+    </style>
+    <script>
+            
+            $(document).ready(function () {
+            // Server
+            var Points=0;
+            var DataX=[];
+            var DataY=[];
+            var Colour=[];
+            var Size=[];
+            var Background="#FFF";    
+            var CurrentSize=5;
+            
+            var CloseMenuAnimation0=new Image();CloseMenuAnimation0.src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT1oBQGQSHBCkJQlgYZYhwlxbMMqjT647h06sPDqQQZya9oDfhDsg";
+            var CloseMenuAnimation1=new Image();CloseMenuAnimation1.src="https://openclipart.org/image/2400px/svg_to_png/16155/milker-X-icon.png";
+            var BrushMenuImg=new Image();BrushMenuImg.src="images/brush_icon.png";
+            var Eraiser=0;    
+            var i=0;
+            var OpenBrushesMenu=0;
+            var click=0;
+            var canvas = $("#canvas")[0],
+                paint = false,
+                context = canvas.getContext("2d");
+            $('.jumbotron').css({
+                
+                "margin-bottom" : "10px",
+                "margin-top" : "10px",
+                "padding-top" : "10px",
+                "padding-bottom" : "10px"
+            });
+            $('h1').css({
+                "font-size" : "30px",
+                "text-align" : "center",
+                "margin-top" : "10px",
+            });
+            $("#canvas").css("border", "3px solid gray");
+                
+            context.fillStyle = "rgb(255, 255, 255)";
+            context.fillRect(0,0,canvas.width,canvas.height);   
+                
+            $("#canvas").mousedown(function (event) {
+                if(! OpenBrushesMenu){
+                    paint = true;
+                }else{
+                    if(click==1){
+                        OpenBrushesMenu=0;
+                        context.clearRect(0, 0, canvas.width, canvas.height);
+                        context.globalAlpha = 1;
+                    }
+                    if(click==2){
+                        CurrentSize=5;
+                        OpenBrushesMenu=0;
+                    }
+                    if(click==3){
+                        CurrentSize=10;
+                        OpenBrushesMenu=0;
+                    }
+                    if(click==4){
+                        CurrentSize=20;
+                        OpenBrushesMenu=0;
+                    }
+                    if(click==5){
+                        CurrentSize=40;
+                        OpenBrushesMenu=0;
+                    }
+                    
+                }
+            });
+            $("#canvas").mouseup(function (event) {
+                paint = false;
+                
+            });
+            $("#canvas").mousemove(function (event) {
+                var mouseX = event.pageX - this.offsetLeft;
+                var mouseY = event.pageY - this.offsetTop;
+                
+                
+                if (paint) {
+                    if(Eraiser){
+                        Colour[Points]=Background;
+                    }else{
+                        Colour[Points]=$("#color_picker").val();
+                    }
+                    DataX[Points]=mouseX;
+                    DataY[Points]=mouseY;
+                    Size[Points]=CurrentSize;
+                    Points++;
+                    
+                }
+                if(! OpenBrushesMenu){
+                    Background=$("#color_picker2").val();
+                    context.fillStyle = Background;
+                    context.fillRect(0,0,canvas.width,canvas.height);
+                    for(i=0;i<Points;i++){
+                        context.fillStyle = Colour[i];
+                        context.beginPath();
+                        context.arc(DataX[i],DataY[i], Size[i], 0, 2 * Math.PI)
+                        context.closePath();
+                        context.fill();
+                    }
+                }else{
+                    if(mouseX>canvas.height+305 && mouseX<canvas.height+305+40 && mouseY>canvas.height-500+5 && mouseY<canvas.height-500+45 && OpenBrushesMenu==1){
+                        click=1;
+                        context.drawImage(CloseMenuAnimation1,canvas.height+305,canvas.height-500+5, 40,40);
+                    }else{
+                        click=0;
+                        context.drawImage(CloseMenuAnimation0,canvas.height+305,canvas.height-500+5, 40,40);
+                    }
+                    if(mouseY>250 && mouseY<400 && OpenBrushesMenu){
+                        if(mouseX>170 && mouseX<300){
+                            click=2;
+                        }
+                        if(mouseX>300 && mouseX<430){
+                            click=3;
+                        }
+                        if(mouseX>430 && mouseX<620){
+                            click=4;
+                        }
+                        if(mouseX>620 && mouseX<875){
+                            click=5;
+                        }
+                    }
+                }
+            })
+            document.getElementById("clickMe").onclick = SelectBrush;
+            function SelectBrush(){
+                OpenBrushesMenu=1;
+                Eraiser=0;
+                if(OpenBrushesMenu == 1){
+                    context.drawImage(BrushMenuImg,150,100, canvas.width-300,canvas.height-200);
+                    context.drawImage(CloseMenuAnimation0,canvas.height+305,canvas.height-500+5, 40,40);   
+                }
+            }
+            document.getElementById("clickMe2").onclick = Eraiserf;
+            function Eraiserf(){
+                OpenBrushesMenu=0;
+                Eraiser=1;
+                CurrentSize=50;
+            }
+            document.getElementById("clickMe3").onclick = Clear;
+            function Clear(){
+                Points=0;
+            }
+            function saveCanvas(){
+                $("#clickMe4").val(document.getElementById("canvas").toDataURL('image/png'));   
+            }
+                
+                
+        })
+    </script>
+    
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="p">The Art Of Painting</h1>
+        </div>
+        <table style="width:100%">
+  <tr>
+    <th class="p1">Цвят за рисуване</th>
+    <th class="p1">Цвят на фона</th> 
+    <th class="p1">Инструменти</th> 
+    
+  </tr>
+  <tr>
+    <td><input type="color" id="color_picker" onchange="clickColor(0, -1, -1, 5)" value="#ff0000" style="width:25%;"></td>
+    <td><input type="color" id="color_picker2" onchange="clickColor(0, -1, -1, 5)" value="#ffffff" style="width:30%;"></td> 
+    <td>
+      <input id="clickMe" type="button" value="Четки" method="SelectBrush()" />
+      <input id="clickMe2" type="button" value="Гума" method="Eraiserf()" />
+      <input id="clickMe3" type="button" value="Изчисти" method="Clear()" />
+      <form action="/save" method="post">
+          <input id="clickMe4" type="button" name="image" value="Запази" method="saveCanvas()">
+      </form>
+    </td>
+      
+  </tr>
+  
+</table>
+    <div class="container">
+        <canvas id="canvas" width="1100px" height="600px"></canvas>
+    </div>
+    </div>
+    
+</body>
+
+</html>

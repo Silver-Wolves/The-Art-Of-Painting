@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $('.jumbotron').css({
+                
+                "margin-bottom" : "10px",
+                "margin-top" : "10px",
+                "padding-top" : "10px",
+                "padding-bottom" : "10px"
+            });
+            $('h1').css({
+                "font-size" : "30px",
+                "text-align" : "center",
+                "margin-top" : "10px",
+            });
+            $(".container").css({
+                "margin-top" : "10px",
+                "padding-top": "10px",
+                "padding-bottom" : "20px",
+                "text-align": "center",
+            });
+             
+            
+            
+            $("p").css({
+                "font-size" : "17px",
+                "margin-bottom": "10px",
+                "text-align": "center",
+            });
+            
+            
+            $("input").css({
+                "margin-bottom": "10px",
+                "margin-top": "10px",
+                "text-align": "center",
+            });
+            
+            
+            $("#reg").css({
+                "margin-top": "10px",
+                "text-align": "center",
+            });
+            
+            $("#log").css({
+                "margin-top": "10px",
+                "text-align": "center",
+            });
+            
+    
+        });
+    </script>
+    <style>
+        .p{
+            font-family: monospace;
+            font-feature-settings: normal;
+            font-style: italic;
+        }
+        .jumbotron {
+          padding-top: 30px;
+          padding-bottom: 30px;
+          margin-bottom: 30px;
+          background-color: rgba(0, 0, 0, 0.18);
+          font-family:monospace;
+          color: rgba(0, 0, 0, 0.66);
+        
+    }
+        body{
+            background-image: url(login.png);
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="p">The Art Of Painting</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="col-md-6">
+            <form id="reg" action="/menus" method="post"> 
+                <p><i>Username :</i></p>
+                <input type="username" id="usr" class="form-control" name="usr">
+
+                <p><i>Password :</i></p>
+                <input type="password" id="pwd" class="form-control" name="pwd">
+              <!---  <p><i>Confirm Password :</i></p>
+                <input type="password" id="pwd" class="form-control" name="pwd"> !-->
+                
+
+                <br>
+                <button id="submit_reg" class="btn btn-success"><i>Register</i></button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <form id="log">
+                <p><i>Username :</i></p>
+                
+                <input type="username" id="usr" class="form-control" name="name">
+            
+                <p><i>Password :</i></p>
+                <input type="password" id="pwd" class="form-control" name="pwd">
+
+                <br>
+                <button id="submit_log" class="btn btn-primary"><i>Login</i></button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
